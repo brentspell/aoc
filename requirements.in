@@ -1,0 +1,15 @@
+#
+# requirements.in - explicit python dependencies
+#
+# to update requirements.txt, run:
+#
+#    pip-compile requirements.in
+#
+
+pip
+jupyter
+jupyter_contrib_nbextensions
+jupyter_nbextensions_configurator
+
+jax
+matplotlib
