@@ -13,3 +13,4 @@ jupyter_nbextensions_configurator
 
 jax
 matplotlib
+tqdm
