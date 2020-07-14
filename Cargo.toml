@@ -1,0 +1,9 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Brent M. Spell <bspell1@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+encoding = "0.2"
+md5 = "0.7"
