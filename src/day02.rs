@@ -1,5 +1,5 @@
 use std::cmp::*;
-use std::io::{prelude::*};
+use std::io::prelude::*;
 
 pub fn solve() {
     let file = std::fs::File::open("data/day02.txt").unwrap();
@@ -11,7 +11,10 @@ pub fn solve() {
                 .split("x")
                 .map(|s| s.parse::<i32>().unwrap())
                 .collect();
-            match v.len() { 3 => (v[0], v[1], v[2]), _ => panic!() }
+            match v.len() {
+                3 => (v[0], v[1], v[2]),
+                _ => panic!(),
+            }
         })
         .collect();
 

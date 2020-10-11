@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use std::io::{prelude::*};
 use regex::Regex;
+use std::collections::HashMap;
+use std::io::prelude::*;
 
 lazy_static! {
     static ref REGEX: Regex = Regex::new("\
@@ -60,7 +60,7 @@ pub fn solve() {
 
     let result = match output["a"] {
         Expr::Assign(Value::Lit(y)) => y,
-        _ => panic!()
+        _ => panic!(),
     };
 
     println!("part 1: {}", result);
@@ -72,7 +72,7 @@ pub fn solve() {
 
     let result = match output["a"] {
         Expr::Assign(Value::Lit(y)) => y,
-        _ => panic!()
+        _ => panic!(),
     };
 
     println!("part 2: {}", result);
@@ -84,7 +84,7 @@ fn parse(line: &str) -> Rule {
         let param = parse_value(&caps, "assign_lit", "assign_var");
         Rule {
             name: caps.name("assign_name").unwrap().as_str(),
-            expr: Expr::Assign(param)
+            expr: Expr::Assign(param),
         }
     } else if caps.name("unary_name") != None {
         let param = parse_value(&caps, "unary_lit", "unary_var");
@@ -93,10 +93,10 @@ fn parse(line: &str) -> Rule {
             expr: Expr::Unary(
                 match caps.name("unary").unwrap().as_str() {
                     "NOT" => Unary::Not,
-                    _ => panic!()
+                    _ => panic!(),
                 },
-                param
-            )
+                param,
+            ),
         }
     } else if caps.name("binary_name") != None {
         let param1 = parse_value(&caps, "binary_lit1", "binary_var1");
@@ -109,11 +109,11 @@ fn parse(line: &str) -> Rule {
                     "OR" => Binary::Or,
                     "LSHIFT" => Binary::LShift,
                     "RSHIFT" => Binary::RShift,
-                    _ => panic!()
+                    _ => panic!(),
                 },
                 param1,
-                param2
-            )
+                param2,
+            ),
         }
     } else {
         panic!();
@@ -136,39 +136,41 @@ fn reduce<'a>(input: &'a mut HashMap<&'a str, Expr<'a>>) -> &HashMap<&'a str, Ex
             match *v {
                 Expr::Unary(op, Value::Lit(x)) => {
                     *v = apply_unary(op, x);
-                },
+                }
                 Expr::Binary(op, Value::Lit(x), Value::Lit(y)) => {
                     *v = apply_binary(op, x, y);
-                },
+                }
                 Expr::Assign(Value::Var(name)) => {
                     done = false;
                     if let Expr::Assign(Value::Lit(lit)) = orig[name] {
                         *v = Expr::Assign(Value::Lit(lit));
                     }
-                },
+                }
                 Expr::Unary(op, Value::Var(name)) => {
                     done = false;
                     if let Expr::Assign(Value::Lit(lit)) = orig[name] {
                         *v = Expr::Unary(op, Value::Lit(lit));
                     }
-                },
+                }
                 Expr::Binary(op, Value::Var(name), y) => {
                     done = false;
                     if let Expr::Assign(Value::Lit(lit)) = orig[name] {
                         *v = Expr::Binary(op, Value::Lit(lit), y);
                     }
-                },
+                }
                 Expr::Binary(op, x, Value::Var(name)) => {
                     done = false;
                     if let Expr::Assign(Value::Lit(lit)) = orig[name] {
                         *v = Expr::Binary(op, x, Value::Lit(lit));
                     }
-                },
-                _ => ()
+                }
+                _ => (),
             }
         }
 
-        if done { break; }
+        if done {
+            break;
+        }
     }
 
     input

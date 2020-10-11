@@ -1,9 +1,9 @@
 use std::cmp::max;
-use std::io::{prelude::*};
+use std::io::prelude::*;
 
 pub fn solve() {
-    let re = regex::Regex::new(r"(turn off|turn on|toggle) (\d+),(\d+) through (\d+),(\d+)")
-        .unwrap();
+    let re =
+        regex::Regex::new(r"(turn off|turn on|toggle) (\d+),(\d+) through (\d+),(\d+)").unwrap();
 
     let file = std::fs::File::open("data/day06.txt").unwrap();
     let input: Vec<(i32, (usize, usize), (usize, usize))> = std::io::BufReader::new(file)
@@ -15,11 +15,13 @@ pub fn solve() {
                 "turn off" => 0,
                 "turn on" => 1,
                 "toggle" => 2,
-                _ => panic!()
+                _ => panic!(),
             };
-            (op,
+            (
+                op,
                 (c[2].parse().unwrap(), c[3].parse().unwrap()),
-                (c[4].parse().unwrap(), c[5].parse().unwrap()))
+                (c[4].parse().unwrap(), c[5].parse().unwrap()),
+            )
         })
         .collect();
 
@@ -32,7 +34,7 @@ pub fn solve() {
                     0 => lights[i][j] = false,
                     1 => lights[i][j] = true,
                     2 => lights[i][j] = !lights[i][j],
-                    _ => panic!()
+                    _ => panic!(),
                 }
             }
         }
@@ -54,7 +56,7 @@ pub fn solve() {
                     0 => lights[i][j] = max(lights[i][j] - 1, 0),
                     1 => lights[i][j] += 1,
                     2 => lights[i][j] += 2,
-                    _ => panic!()
+                    _ => panic!(),
                 }
             }
         }

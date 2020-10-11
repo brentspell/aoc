@@ -5,9 +5,7 @@ pub fn solve() {
         .collect();
 
     // part 1
-    let santa = input
-        .iter()
-        .scan((0, 0), &step);
+    let santa = input.iter().scan((0, 0), &step);
     let result = vec![(0, 0)]
         .into_iter()
         .chain(santa)
@@ -17,15 +15,8 @@ pub fn solve() {
     println!("part 1: {}", result);
 
     // part 2
-    let santa = input
-        .iter()
-        .step_by(2)
-        .scan((0, 0), &step);
-    let robot = input
-        .iter()
-        .skip(1)
-        .step_by(2)
-        .scan((0, 0), &step);
+    let santa = input.iter().step_by(2).scan((0, 0), &step);
+    let robot = input.iter().skip(1).step_by(2).scan((0, 0), &step);
     let result = vec![(0, 0)]
         .into_iter()
         .chain(santa)
@@ -41,7 +32,7 @@ fn step((x, y): &mut (i32, i32), c: &char) -> Option<(i32, i32)> {
         '>' => *x += 1,
         'v' => *y -= 1,
         '<' => *x -= 1,
-        _ => ()
+        _ => (),
     };
     Some((*x, *y))
 }

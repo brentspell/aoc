@@ -1,6 +1,5 @@
 pub fn solve() {
-    let input = std::fs::read_to_string("data/day04.txt")
-        .unwrap();
+    let input = std::fs::read_to_string("data/day04.txt").unwrap();
 
     // part 1
     let result = (0..)
