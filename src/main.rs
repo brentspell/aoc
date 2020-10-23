@@ -12,26 +12,30 @@ mod day06;
 mod day07;
 mod day08;
 
+const SOLUTIONS: &'static [fn()] = &[
+    day01::solve,
+    day02::solve,
+    day03::solve,
+    day04::solve,
+    day05::solve,
+    day06::solve,
+    day07::solve,
+    day08::solve,
+];
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     match args.len() {
         2 => dispatch(args[1].parse().unwrap()),
-        _ => (1..=25).map(|i| dispatch(i)).collect(),
+        _ => (1..=SOLUTIONS.len()).map(dispatch).collect(),
     }
 }
 
-fn dispatch(day: i32) {
+fn dispatch(day: usize) {
     println!("day {}", day);
-    match day {
-        1 => day01::solve(),
-        2 => day02::solve(),
-        3 => day03::solve(),
-        4 => day04::solve(),
-        5 => day05::solve(),
-        6 => day06::solve(),
-        7 => day07::solve(),
-        8 => day08::solve(),
-        _ => (),
+    match SOLUTIONS.get(day - 1) {
+        Some(f) => f(),
+        None => println!("not implemented yet"),
     }
     println!()
 }
