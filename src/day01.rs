@@ -17,7 +17,7 @@ pub fn solve() {
     let result = input
         .iter()
         .scan(0, |a, x| {
-            *a = *a + x;
+            *a += x;
             Some(*a)
         })
         .take_while(|&x| x >= 0)

@@ -1,39 +1,49 @@
 use std::cmp::max;
 use std::io::prelude::*;
 
+struct Operation {
+    code: u32,
+    x1: usize,
+    y1: usize,
+    x2: usize,
+    y2: usize,
+}
+
 pub fn solve() {
     let re =
         regex::Regex::new(r"(turn off|turn on|toggle) (\d+),(\d+) through (\d+),(\d+)").unwrap();
 
     let file = std::fs::File::open("data/day06.txt").unwrap();
-    let input: Vec<(i32, (usize, usize), (usize, usize))> = std::io::BufReader::new(file)
+    let input: Vec<Operation> = std::io::BufReader::new(file)
         .lines()
         .map(|l| l.unwrap())
         .map(|l| {
             let c = re.captures(&l).unwrap();
-            let op = match &c[1] {
+            let code = match &c[1] {
                 "turn off" => 0,
                 "turn on" => 1,
                 "toggle" => 2,
                 _ => panic!(),
             };
-            (
-                op,
-                (c[2].parse().unwrap(), c[3].parse().unwrap()),
-                (c[4].parse().unwrap(), c[5].parse().unwrap()),
-            )
+            Operation {
+                code,
+                x1: c[2].parse().unwrap(),
+                y1: c[3].parse().unwrap(),
+                x2: c[4].parse().unwrap(),
+                y2: c[5].parse().unwrap(),
+            }
         })
         .collect();
 
     // part 1
     let mut lights = [[false; 1000]; 1000];
-    for (op, (x1, y1), (x2, y2)) in input.iter() {
-        for i in *x1..=*x2 {
-            for j in *y1..=*y2 {
-                match op {
-                    0 => lights[i][j] = false,
-                    1 => lights[i][j] = true,
-                    2 => lights[i][j] = !lights[i][j],
+    for op in input.iter() {
+        for light in lights.iter_mut().take(op.x2 + 1).skip(op.x1) {
+            for light in light.iter_mut().take(op.y2 + 1).skip(op.y1) {
+                match op.code {
+                    0 => *light = false,
+                    1 => *light = true,
+                    2 => *light = !*light,
                     _ => panic!(),
                 }
             }
@@ -49,13 +59,13 @@ pub fn solve() {
 
     // part 2
     let mut lights = [[0; 1000]; 1000];
-    for (op, (x1, y1), (x2, y2)) in input.iter() {
-        for i in *x1..=*x2 {
-            for j in *y1..=*y2 {
-                match op {
-                    0 => lights[i][j] = max(lights[i][j] - 1, 0),
-                    1 => lights[i][j] += 1,
-                    2 => lights[i][j] += 2,
+    for op in input.iter() {
+        for light in lights.iter_mut().take(op.x2 + 1).skip(op.x1) {
+            for light in light.iter_mut().take(op.y2 + 1).skip(op.y1) {
+                match op.code {
+                    0 => *light = max(*light - 1, 0),
+                    1 => *light += 1,
+                    2 => *light += 2,
                     _ => panic!(),
                 }
             }

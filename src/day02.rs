@@ -8,7 +8,7 @@ pub fn solve() {
         .map(|l| {
             let v: Vec<i32> = l
                 .unwrap()
-                .split("x")
+                .split('x')
                 .map(|s| s.parse::<i32>().unwrap())
                 .collect();
             match v.len() {

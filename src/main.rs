@@ -13,16 +13,16 @@ mod day07;
 mod day08;
 mod day09;
 
-const SOLUTIONS: &'static [fn()] = &[
-    day01::solve,
-    day02::solve,
-    day03::solve,
-    day04::solve,
-    day05::solve,
-    day06::solve,
-    day07::solve,
-    day08::solve,
-    day09::solve,
+const SOLUTIONS: &[&dyn Fn()] = &[
+    &day01::solve,
+    &day02::solve,
+    &day03::solve,
+    &day04::solve,
+    &day05::solve,
+    &day06::solve,
+    &day07::solve,
+    &day08::solve,
+    &day09::solve,
 ];
 
 fn main() {
