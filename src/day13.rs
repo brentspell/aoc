@@ -14,20 +14,26 @@ pub fn solve() {
         .lines()
         .map(|l| l.unwrap())
         .collect();
-    let inputs: Vec<(&str, &str, i64)> = lines.iter().map(|l| parse(&l)).collect();
-    let people: HashSet<&str> = inputs.iter().map(|&(f, _t, _d)| f).collect();
-    let costs: HashMap<(&str, &str), i64> = inputs.iter().map(|&(f, t, d)| ((f, t), d)).collect();
+    let inputs: Vec<(&str, &str, i32)> = lines.iter().map(|l| parse(&l)).collect();
+    let people: Vec<&str> = inputs
+        .iter()
+        .map(|&(f, _t, _d)| f)
+        .collect::<HashSet<&str>>()
+        .into_iter()
+        .collect();
+    let costs: HashMap<(&str, &str), i32> = inputs.iter().map(|&(f, t, d)| ((f, t), d)).collect();
 
     // part 1
-    let result = search("Alice", "Alice", 0, &without(&people, "Alice"), &costs);
+    let result = optimize(&people, &costs);
     println!("part 1: {}", result);
 
     // part 2
-    let result = search("Brent", "Brent", 0, &people, &costs);
+    let people: Vec<&str> = people.into_iter().chain(vec!["Brent"]).collect();
+    let result = optimize(&people, &costs);
     println!("part 2: {}", result);
 }
 
-fn parse(line: &str) -> (&str, &str, i64) {
+fn parse(line: &str) -> (&str, &str, i32) {
     let caps = REGEX.captures(line).unwrap();
     let sign = if caps.name("op").unwrap().as_str() == "gain" {
         1
@@ -41,40 +47,19 @@ fn parse(line: &str) -> (&str, &str, i64) {
             .name("number")
             .unwrap()
             .as_str()
-            .parse::<i64>()
+            .parse::<i32>()
             .unwrap(),
     )
 }
 
-fn search<'a>(
-    root: &'a str,
-    elem: &'a str,
-    cost: i64,
-    people: &HashSet<&'a str>,
-    costs: &HashMap<(&'a str, &'a str), i64>,
-) -> i64 {
-    if people.is_empty() {
-        cost + costs.get(&(elem, root)).unwrap_or(&0) + costs.get(&(root, elem)).unwrap_or(&0)
-    } else {
-        people
-            .iter()
-            .map(|&next| {
-                search(
-                    root,
-                    next,
-                    cost + costs.get(&(elem, next)).unwrap_or(&0)
-                        + costs.get(&(next, elem)).unwrap_or(&0),
-                    &without(people, next),
-                    costs,
-                )
-            })
-            .max()
-            .unwrap()
-    }
-}
-
-fn without<'a>(set: &HashSet<&'a str>, elem: &'a str) -> HashSet<&'a str> {
-    let mut set = set.clone();
-    set.remove(elem);
-    set
+fn optimize(people: &[&str], costs: &HashMap<(&str, &str), i32>) -> i32 {
+    permutohedron::Heap::new(&mut people.to_vec())
+        .map(|p| {
+            p.iter()
+                .zip(p.iter().skip(1).chain(&p[..1]))
+                .map(|(a, b)| costs.get(&(a, b)).unwrap_or(&0) + costs.get(&(b, a)).unwrap_or(&0))
+                .sum()
+        })
+        .max()
+        .unwrap()
 }
