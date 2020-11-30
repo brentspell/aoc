@@ -1,0 +1,10 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Brent M. Spell <bspell1@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+lazy_static = "1.4"
+permutohedron = "0.2"
+regex = "1"
