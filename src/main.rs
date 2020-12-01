@@ -1,6 +1,8 @@
 use std::env;
 
-const SOLUTIONS: &[&dyn Fn()] = &[];
+mod day01;
+
+const SOLUTIONS: &[&dyn Fn()] = &[&day01::solve];
 
 fn main() {
     let args: Vec<String> = env::args().collect();
