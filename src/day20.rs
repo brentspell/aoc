@@ -28,7 +28,7 @@ pub fn solve() {
 // https://www.math.upenn.edu/~deturck/m170/wk3/lecture/sumdiv.html
 fn factsum(x: i32) -> i32 {
     let mut x = x;
-    let mut s = 1;
+    let mut sum = 1;
 
     // first find all divisors that are powers of two
     let i = 2;
@@ -39,7 +39,7 @@ fn factsum(x: i32) -> i32 {
         q *= i;
         p += q;
     }
-    s *= p;
+    sum *= p;
 
     // then we can skip all multiples of two to find the prime divisors
     let max = (x as f32).sqrt() as i32 + 1;
@@ -51,15 +51,15 @@ fn factsum(x: i32) -> i32 {
             q *= i;
             p += q;
         }
-        s *= p
+        sum *= p
     }
 
     // if anything remains, it is a prime divisor
     if x > 2 {
-        s *= 1 + x
+        sum *= 1 + x
     }
 
-    s
+    sum
 }
 
 // brute force enumerate divisors
