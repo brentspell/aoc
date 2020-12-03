@@ -1,5 +1,5 @@
 use std::io::prelude::*;
-use std::{fs, io};
+use std::{cmp, fs, io};
 
 pub fn solve() {
     let file = fs::File::open("data/day24.txt").unwrap();
@@ -36,10 +36,8 @@ pub fn solve() {
             // next, find all combinations of any length from the remaining gifts
             // if there is third combination with the same weight, we are done
             let gifts = diff(&gifts, &pass);
-            if all_combos(&gifts, max)
-                .iter()
-                .any(|p| any_combos(&diff(&gifts, &p), max))
-            {
+            let next = all_combos(&gifts, max);
+            if next.iter().any(|p| any_combos(&diff(&gifts, &p), max)) {
                 result = pass.iter().product();
                 break;
             }
@@ -50,21 +48,21 @@ pub fn solve() {
 }
 
 fn all_combos(set: &[i64], max: i64) -> Vec<Vec<i64>> {
-    if max == 0 {
-        vec![vec![]]
-    } else if max < 0 {
-        vec![]
-    } else {
-        let mut vec: Vec<Vec<i64>> = Vec::new();
-        for i in 0..set.len() {
-            for v in all_combos(&set[i + 1..], max - set[i]) {
-                let mut v2: Vec<i64> = Vec::with_capacity(v.len() + 1);
-                v2.push(set[i]);
-                v2.extend_from_slice(&v);
-                vec.push(v2);
+    match max.cmp(&0) {
+        cmp::Ordering::Equal => vec![vec![]],
+        cmp::Ordering::Less => vec![],
+        _ => {
+            let mut vec: Vec<Vec<i64>> = Vec::new();
+            for i in 0..set.len() {
+                for v in all_combos(&set[i + 1..], max - set[i]) {
+                    let mut v2: Vec<i64> = Vec::with_capacity(v.len() + 1);
+                    v2.push(set[i]);
+                    v2.extend_from_slice(&v);
+                    vec.push(v2);
+                }
             }
+            vec
         }
-        vec
     }
 }
 
@@ -88,17 +86,17 @@ fn fixed_combos(set: &[i64], length: usize, max: i64) -> Vec<Vec<i64>> {
 }
 
 fn any_combos(set: &[i64], max: i64) -> bool {
-    if max == 0 {
-        true
-    } else if max < 0 {
-        false
-    } else {
-        for i in 0..set.len() {
-            if any_combos(&set[i + 1..], max - set[i]) {
-                return true;
+    match max.cmp(&0) {
+        cmp::Ordering::Equal => true,
+        cmp::Ordering::Less => false,
+        _ => {
+            for i in 0..set.len() {
+                if any_combos(&set[i + 1..], max - set[i]) {
+                    return true;
+                }
             }
+            false
         }
-        false
     }
 }
 
