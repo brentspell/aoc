@@ -18,7 +18,7 @@ pub fn solve() {
     let mut reverse: HashMap<&str, Vec<&str>> = HashMap::new();
     for (source, target) in &mapping {
         for (target, _count) in target {
-            reverse.entry(target).or_insert(vec![]).push(source);
+            reverse.entry(target).or_insert_with(Vec::new).push(source);
         }
     }
 
