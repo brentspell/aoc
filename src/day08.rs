@@ -15,42 +15,31 @@ pub fn solve() {
         .collect();
     let program: Vec<(&str, i32)> = lines.iter().map(|l| parse(&l)).collect();
 
-    // part 1
-    let (_ip, result) = execute(&program);
-    println!("part 1: {}", result);
+    println!("part 1: {}", part1(&program));
+    println!("part 2: {}", part2(&program));
+}
 
-    // part 2
-    let mut result = 0;
+fn part1(program: &[(&str, i32)]) -> i32 {
+    let (_ip, result) = execute(&program);
+    result
+}
+
+fn part2(program: &[(&str, i32)]) -> i32 {
     for fix in 0..program.len() {
-        let mut program: Vec<(&str, i32)> = program.clone();
+        let mut program: Vec<(&str, i32)> = program.to_vec();
         let (ref mut op, _arg) = program[fix];
         match *op {
-            "jmp" => {
-                *op = "nop";
-            }
-            "nop" => {
-                *op = "jmp";
-            }
-            _ => {
-                continue;
-            }
+            "jmp" => *op = "nop",
+            "nop" => *op = "jmp",
+            _ => continue,
         }
 
         let (ip, ac) = execute(&program);
         if ip == program.len() {
-            result = ac;
-            break;
+            return ac;
         }
     }
-    println!("part 2: {}", result);
-}
-
-fn parse(line: &str) -> (&str, i32) {
-    let caps = REGEX.captures(line).unwrap();
-    (
-        caps.name("op").unwrap().as_str(),
-        caps.name("arg").unwrap().as_str().parse().unwrap(),
-    )
+    panic!();
 }
 
 fn execute(program: &[(&str, i32)]) -> (usize, i32) {
@@ -77,4 +66,29 @@ fn execute(program: &[(&str, i32)]) -> (usize, i32) {
     }
 
     (ip, ac)
+}
+
+fn parse(line: &str) -> (&str, i32) {
+    let caps = REGEX.captures(line).unwrap();
+    (
+        caps.name("op").unwrap().as_str(),
+        caps.name("arg").unwrap().as_str().parse().unwrap(),
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let lines = vec![
+            "nop +0", "acc +1", "jmp +4", "acc +3", "jmp -3", "acc -99", "acc +1", "jmp -4",
+            "acc +6",
+        ];
+        let program: Vec<(&str, i32)> = lines.into_iter().map(parse).collect();
+
+        assert_eq!(part1(&program), 5);
+        assert_eq!(part2(&program), 8);
+    }
 }
