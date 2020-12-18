@@ -20,6 +20,7 @@ mod day14;
 mod day15;
 mod day16;
 mod day17;
+mod day18;
 
 const SOLUTIONS: &[&dyn Fn()] = &[
     &day01::solve,
@@ -39,6 +40,7 @@ const SOLUTIONS: &[&dyn Fn()] = &[
     &day15::solve,
     &day16::solve,
     &day17::solve,
+    &day18::solve,
 ];
 
 fn main() {
