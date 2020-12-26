@@ -8,7 +8,7 @@
     "lint": "./node_modules/.bin/eslint .",
     "test": "nodemon -e ts --watch 'src/**/*.ts' --exec 'clear; jest'",
     "start": "nodemon -e ts --watch 'src/**/*.ts' --exec 'clear; ts-node' src/index.ts",
-    "typescript": "tsc --noEmit src"
+    "typescript": "tsc -p tsconfig.json --noEmit"
   },
   "repository": {
     "type": "git",

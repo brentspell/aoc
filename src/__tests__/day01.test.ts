@@ -1,6 +1,6 @@
 import { part1, part2 } from '../day01'
 
-describe('today', () => {
+describe('day01', () => {
   it('runs part1', () => {
     expect(part1('R2, L3')).toBe(5)
     expect(part1('R2, R2, R2')).toBe(2)
