@@ -7,7 +7,8 @@
     "build": "npx tsc",
     "lint": "./node_modules/.bin/eslint .",
     "test": "nodemon -e ts --watch 'src/**/*.ts' --exec 'clear; jest'",
-    "start": "nodemon -e ts --watch 'src/**/*.ts' --exec 'clear; ts-node' src/index.ts"
+    "start": "nodemon -e ts --watch 'src/**/*.ts' --exec 'clear; ts-node' src/index.ts",
+    "typescript": "tsc --noEmit src"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-tsc": "^2.0.0",
     "husky": "^4.3.6",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.3",
@@ -45,13 +47,13 @@
     "commander": "^6.2.1"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "./src/*.ts": [
-      "./node_modules/.bin/eslint src"
+      "./node_modules/.bin/eslint --plugin tsc --rule 'tsc/config: [2, {configFile: \"./tsconfig.json\"}]'"
     ]
   }
 }

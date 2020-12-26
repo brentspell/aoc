@@ -1,9 +1,8 @@
 import fs from 'fs'
+import { Solution } from './types'
 import * as day01 from './day01'
 
-type handler = (data: string) => number
-
-const days: Record<string, Record<string, handler>> = { '01': day01 }
+const days: Record<string, Solution> = { '01': day01 }
 
 function run(name: string): void {
   const day = days[name]
