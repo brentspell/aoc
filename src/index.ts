@@ -3,11 +3,13 @@ import { Solution } from './types'
 import * as day01 from './day01'
 import * as day02 from './day02'
 import * as day03 from './day03'
+import * as day04 from './day04'
 
 const days: Record<string, Solution> = {
   '01': day01,
   '02': day02,
   '03': day03,
+  '04': day04,
 }
 
 function run(name: string): void {
