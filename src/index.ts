@@ -2,10 +2,12 @@ import fs from 'fs'
 import { Solution } from './types'
 import * as day01 from './day01'
 import * as day02 from './day02'
+import * as day03 from './day03'
 
 const days: Record<string, Solution> = {
   '01': day01,
   '02': day02,
+  '03': day03,
 }
 
 function run(name: string): void {
