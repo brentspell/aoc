@@ -44,7 +44,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "commander": "^6.2.1"
+    "tinyqueue": "^2.0.3"
   },
   "husky": {
     "hooks": {
