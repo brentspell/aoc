@@ -21,6 +21,7 @@ import * as day18 from './day18'
 import * as day19 from './day19'
 import * as day20 from './day20'
 import * as day21 from './day21'
+import * as day22 from './day22'
 
 const days: Record<string, Solution> = {
   '01': day01,
@@ -44,6 +45,7 @@ const days: Record<string, Solution> = {
   '19': day19,
   '20': day20,
   '21': day21,
+  '22': day22,
 }
 
 function run(name: string): void {
