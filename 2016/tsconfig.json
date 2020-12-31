@@ -1,0 +1,13 @@
+{
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "strict": true,
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6", "esnext"],
+    "esModuleInterop": true,
+    "noImplicitAny": true
+  }
+}
