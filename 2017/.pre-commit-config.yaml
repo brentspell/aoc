@@ -18,12 +18,13 @@ repos:
                 - flake8-black
     - repo: local
       hooks:
-        - id: pylint
-          name: pylint
-          entry: pylint
-          language: system
-          exclude: ^2017/tests/
-          types: [python]
+          - id: pylint
+            name: pylint
+            entry: pylint
+            language: system
+            exclude: ^2017/tests/
+            types: [python]
+            args: [--rcfile=2017/.pylintrc]
     - repo: https://github.com/timothycrosley/isort
       rev: 5.6.4
       hooks:
@@ -37,6 +38,6 @@ repos:
           - id: pytest
             name: pytest
             language: system
-            entry: python -m pytest
+            entry: bash -c 'cd 2017 && python -m pytest'
             pass_filenames: false
             always_run: true
