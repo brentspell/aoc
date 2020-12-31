@@ -1,0 +1,21 @@
+#
+# requirements.in - explicit python dependencies
+#
+# to update requirements.txt, run:
+#
+#    pip-compile
+#
+
+# setup
+black
+flake8
+mypy
+pre-commit
+pylint
+
+# testing
+pytest
+pytest-benchmark
+
+# math
+numpy
