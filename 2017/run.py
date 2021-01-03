@@ -6,7 +6,7 @@ from importlib import import_module
 def run(day):
     mod = import_module(f"day{day:02d}")
     with open(os.path.join("data", f"day{day:02d}.txt"), "r") as file:
-        data = file.read().strip()
+        data = file.read().rstrip()
 
     print(f"day {day:02d}")
     print(f"    part 1: {mod.part1(data)}")
