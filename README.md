@@ -2,6 +2,7 @@
 
 This repo contains my solutions to the [Advent of Code](https://adventofcode.com/events) challenges, in reverse completion order.
 
+* [2021](https://adventofcode.com/2022): Rust
 * [2021](https://adventofcode.com/2021): Python/Jupyter
 * [2017](https://adventofcode.com/2017): Python (with tests!)
 * [2016](https://adventofcode.com/2016): TypeScript
