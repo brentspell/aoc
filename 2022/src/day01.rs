@@ -1,7 +1,7 @@
 use std::collections::BinaryHeap;
 
 pub fn solve() {
-    let elves = parse(&std::fs::read_to_string("data/day02.txt").unwrap());
+    let elves = parse(&std::fs::read_to_string("data/day01.txt").unwrap());
 
     // part 1
     println!("part 1: {}", part1(&elves));
