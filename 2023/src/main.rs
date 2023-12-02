@@ -4,8 +4,9 @@ extern crate lazy_static;
 use std::env;
 
 mod day01;
+mod day02;
 
-const SOLUTIONS: &[&dyn Fn()] = &[&day01::solve];
+const SOLUTIONS: &[&dyn Fn()] = &[&day01::solve, &day02::solve];
 
 fn main() {
     let args: Vec<String> = env::args().collect();
