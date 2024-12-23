@@ -12,7 +12,7 @@ dev-dependencies = [
   "pre-commit",
   "ruff",
   "pytest",
-  "pytest-watch",
+  "pytest-watcher",
 ]
 
 [tool.ruff]
