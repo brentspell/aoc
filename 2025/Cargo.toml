@@ -1,0 +1,11 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Brent M. Spell <bspell1@gmail.com>"]
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+cached = "0.56"
+itertools = "0.14"
+regex = "1"
