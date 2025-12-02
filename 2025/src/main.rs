@@ -1,9 +1,11 @@
 use std::env;
 
 mod day01;
+mod day02;
 
 const SOLUTIONS: &[&dyn Fn()] = &[
     &day01::solve,
+    &day02::solve,
 ];
 
 fn main() {
